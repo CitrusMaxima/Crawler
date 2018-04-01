@@ -59,9 +59,22 @@ public class Crawler {
                 movieInfo.append("编剧：" + attrs + "\n");
             }
 
-            
+            //提取主演姓名
+            Pattern pattern5 = Pattern.compile("主演</span>.+<span class=\"pl\">类型:");
+            Matcher matcher5 = pattern5.matcher(mainInfo);
+            while (matcher5.find()) {
+                Pattern actorPattern = Pattern.compile("[\\u4e00-\\u9fa5a-zA-Z·]+</a>");
+                Matcher actorMatcher = actorPattern.matcher(matcher5.group());
+                String actors = "";
+                while (actorMatcher.find()) {
+                    actors += actorMatcher.group().substring(0,actorMatcher.group().length()-4) + " ";
+                }
+                movieInfo.append("主演：" + actors + "\n");
+            }
+
+            //提取电影类型
         }
-        //movieInfo.append(mainInfo);
+        movieInfo.append(mainInfo);
         return movieInfo.toString();
     }
 
