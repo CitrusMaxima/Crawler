@@ -1,7 +1,5 @@
 package crawler;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -99,7 +97,16 @@ public class Crawler {
                 movieInfo.append("制片国家/地区：" + country + "\n");
             }
 
+            //提取语言
+            Pattern pattern9 = Pattern.compile("语言:</span> [\\u4e00-\\u9fa5]+");
+            Matcher matcher9 = pattern9.matcher(mainInfo);
+            while (matcher9.find()) {
+                String language = matcher9.group().substring(11);
+                movieInfo.append("语言：" + language + "\n");
+            }
 
+            //提取上映日期
+            
         }
         movieInfo.append(mainInfo);
         return movieInfo.toString();
