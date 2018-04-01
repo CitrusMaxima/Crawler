@@ -46,7 +46,20 @@ public class Crawler {
                 movieInfo.append("导演：" + director + "\n");
             }
 
+            //提取编剧姓名
+            Pattern pattern4 = Pattern.compile("编剧</span>.+span class=\"actor\"");
+            Matcher matcher4 = pattern4.matcher(mainInfo);
+            while (matcher4.find()) {
+                Pattern attrsPattern = Pattern.compile("[\\u4e00-\\u9fa5a-zA-Z·]+</a>");
+                Matcher attrsMatcher = attrsPattern.matcher(matcher4.group());
+                String attrs = "";
+                while (attrsMatcher.find()) {
+                    attrs += attrsMatcher.group().substring(0,attrsMatcher.group().length()-4) + " ";
+                }
+                movieInfo.append("编剧：" + attrs + "\n");
+            }
 
+            
         }
         //movieInfo.append(mainInfo);
         return movieInfo.toString();
