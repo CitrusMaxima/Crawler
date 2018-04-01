@@ -142,9 +142,20 @@ public class Crawler {
             }
 
             //提取剧情简介
+            Pattern pattern13 = Pattern.compile("v:summary.*</span>");
+            Matcher matcher13 = pattern13.matcher(mainInfo);
+            while (matcher13.find()) {
+                String summaryStr = matcher13.group();
+                Pattern summaryPattern = Pattern.compile(">.*</span>");
+                Matcher summaryMatcher = summaryPattern.matcher(summaryStr);
+                while (summaryMatcher.find()) {
+                    String summary = summaryMatcher.group().substring(1,summaryMatcher.group().length()-7);
+                    movieInfo.append("剧情简介：" + summary.replaceAll("[　\\s]*", "") + "\n");
+                }
 
+            }
         }
-        movieInfo.append(mainInfo);
+        //movieInfo.append(mainInfo);
         return movieInfo.toString();
     }
 
