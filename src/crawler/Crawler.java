@@ -134,6 +134,14 @@ public class Crawler {
             }
 
             //提取别名
+            Pattern pattern12 = Pattern.compile("又名:</span> [\\u4e00-\\u9fa50-9/() ]+<br/>");
+            Matcher matcher12 = pattern12.matcher(mainInfo);
+            while (matcher12.find()) {
+                String aname = matcher12.group().substring(11,matcher12.group().length()-5);
+                movieInfo.append("又名：" + aname + "\n");
+            }
+
+            //提取剧情简介
 
         }
         movieInfo.append(mainInfo);
