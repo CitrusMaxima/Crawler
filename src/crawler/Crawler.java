@@ -5,8 +5,7 @@ import java.util.regex.Pattern;
 
 public class Crawler {
 
-    public String regexMain() {
-        String url="https://movie.douban.com/subject/4920389/?from=playing_poster";
+    public String regexMain(String url) {
         String result = ConnectionUtil.Connect(url);
         return getMovieInfo(result);
     }
@@ -134,7 +133,7 @@ public class Crawler {
             }
 
             //提取别名
-            Pattern pattern12 = Pattern.compile("又名:</span> [\\u4e00-\\u9fa50-9/() ]+<br/>");
+            Pattern pattern12 = Pattern.compile("又名:</span> [\\u4e00-\\u9fa50-9/()a-zA-Z:： ]+<br/>");
             Matcher matcher12 = pattern12.matcher(mainInfo);
             while (matcher12.find()) {
                 String aname = matcher12.group().substring(11,matcher12.group().length()-5);
