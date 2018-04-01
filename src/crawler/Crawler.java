@@ -1,5 +1,7 @@
 package crawler;
 
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -90,8 +92,16 @@ public class Crawler {
             }
 
             //提取制片国家/地区
+            Pattern pattern8 = Pattern.compile("制片国家/地区:</span> [\\u4e00-\\u9fa5]+");
+            Matcher matcher8 = pattern8.matcher(mainInfo);
+            while (matcher8.find()) {
+                String country = matcher8.group().substring(16);
+                movieInfo.append("制片国家/地区：" + country + "\n");
+            }
+
+
         }
-        //movieInfo.append(mainInfo);
+        movieInfo.append(mainInfo);
         return movieInfo.toString();
     }
 
