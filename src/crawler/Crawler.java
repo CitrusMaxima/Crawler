@@ -38,6 +38,15 @@ public class Crawler {
                 movieInfo.append("海报链接：" + imgURL + "\n");
             }
 
+            //提取导演姓名
+            Pattern pattrern3 = Pattern.compile("v:directedBy\">[\\u4e00-\\u9fa5a-zA-Z·]+");
+            Matcher matcher3 = pattrern3.matcher(mainInfo);
+            while (matcher3.find()) {
+                String director = matcher3.group().substring(14);
+                movieInfo.append("导演：" + director + "\n");
+            }
+
+
         }
         //movieInfo.append(mainInfo);
         return movieInfo.toString();
