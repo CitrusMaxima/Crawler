@@ -82,9 +82,16 @@ public class Crawler {
             movieInfo.append("类型：" + genre + "\n");
 
             //提取官方网站网址
-            
+            Pattern pattern7 = Pattern.compile("官方网站:</span> <a href=\".*?\" ");
+            Matcher matcher7 = pattern7.matcher(mainInfo);
+            while (matcher7.find()) {
+                String URL = matcher7.group().substring(22,matcher7.group().length()-2);
+                movieInfo.append("官方网站：" + URL + "\n");
+            }
+
+            //提取制片国家/地区
         }
-        movieInfo.append(mainInfo);
+        //movieInfo.append(mainInfo);
         return movieInfo.toString();
     }
 
