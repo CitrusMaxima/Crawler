@@ -120,7 +120,21 @@ public class Crawler {
             }
 
             //提取片长
-            
+            Pattern pattern11 = Pattern.compile("v:runtime\".*又名:");
+            Matcher matcher11 = pattern11.matcher(mainInfo);
+            while (matcher11.find()) {
+                String timeStr = matcher11.group();
+                Pattern timePattern = Pattern.compile(">[\\u4e00-\\u9fa50-9]+</span>");
+                Matcher timeMatcher = timePattern.matcher(timeStr);
+                while (timeMatcher.find()) {
+                    String runtime = timeMatcher.group().substring(1,timeMatcher.group().length()-7);
+                    movieInfo.append("片长：" + runtime + "\n");
+                }
+
+            }
+
+            //提取别名
+
         }
         movieInfo.append(mainInfo);
         return movieInfo.toString();
