@@ -73,6 +73,16 @@ public class Crawler {
             }
 
             //提取电影类型
+            Pattern pattern6 = Pattern.compile("v:genre\">[\\u4e00-\\u9fa5]+");
+            Matcher matcher6 = pattern6.matcher(mainInfo);
+            String genre = "";
+            while (matcher6.find()) {
+                genre += matcher6.group().substring(9,matcher6.group().length()) + " ";
+            }
+            movieInfo.append("类型：" + genre + "\n");
+
+            //提取官方网站网址
+            
         }
         movieInfo.append(mainInfo);
         return movieInfo.toString();
