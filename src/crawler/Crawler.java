@@ -106,6 +106,20 @@ public class Crawler {
             }
 
             //提取上映日期
+            Pattern pattern10 = Pattern.compile("v:initialReleaseDate\".*片长:");
+            Matcher matcher10 = pattern10.matcher(mainInfo);
+            while (matcher10.find()) {
+                String dateStr = matcher10.group();
+                Pattern datePattern = Pattern.compile(">[\\u4e00-\\u9fa50-9-()]+</span>");
+                Matcher dateMatcher = datePattern.matcher(dateStr);
+                String date = "";
+                while (dateMatcher.find()) {
+                    date += dateMatcher.group().substring(1,dateMatcher.group().length()-7) + " ";
+                }
+                movieInfo.append("上映日期：" + date + "\n");
+            }
+
+            //提取片长
             
         }
         movieInfo.append(mainInfo);
